@@ -40,10 +40,75 @@ class Controller_login extends Controller
       return ($answer);
     else
     {
-      session_start();
-      $_SESSION['user'] = $answer;
+		if (!isset($_SESSION))
+			session_start();
+      $_SESSION['user'] = base64_encode(serialize($answer));
+      /* $host = 'http://'.$_SERVER['HTTP_HOST']."/"; */
+      /* header('Location:'.$host.'main'); */
       return ($answer);
     }
+  }
+
+  function randomPassword()
+  {
+    $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+    $pass = array();
+    $alphaLength = strlen($alphabet) - 1;
+	for ($i = 0; $i < 8; $i++)
+	{
+        $n = rand(0, $alphaLength);
+        $pass[] = $alphabet[$n];
+    }
+    return implode($pass);
+  }
+
+  private function reset_password($user, $token)
+  {
+	  return ($this->model->update_pass($user, $token, $this->randomPassword()));
+  }
+
+  private function send_reset_link($user)
+  {
+	  $mail = $user;
+	  $token = $this->model->get_token($mail);
+	  $to = $mail;
+	  $subject = "Camagru password reset";
+	  $from = 'no-reply@'.$_SERVER['SERVER_NAME'];
+	  $body = 'Hi, <br/> <br/>Your login is ' ."placeholder" .
+' <br><br>Click here to reset your password '.
+'http://localhost:8080/login/reset/?token=' . $token . ' &user='.$mail.'<br/>';
+	  $headers = "From: " . strip_tags($from) . "\r\n";
+	  $headers .= "Reply-To: ". strip_tags($from) . "\r\n";
+	  $headers .= "MIME-Version: 1.0\r\n";
+	  $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+	  if (mail($to, $subject, $body, $headers))
+		  return ("Please follow link in e-mail to reset your password");
+	  else
+		  return ("send fail");
+  }
+
+  function action_reset()
+  {
+	  if (isset($_GET) &&
+		  isset($_GET['user']) && !empty($_GET['user']) &&
+		  isset($_GET['token']) && !empty($_GET['token']))
+	  {
+		  $answer = $this->reset_password($_GET['user'], $_GET['token']);
+		  $data = array('answer' => $answer);
+		  $this->view->generate('login_reset_view.php',
+			  'template_view.php', $data);
+	  }
+	  else if (
+		  isset($_GET['user']) && !empty($_GET['user']) &&
+		  (!isset($_GET['token']) || empty($_GET['token'])))
+	  {
+		  $answer = $this->send_reset_link($_GET['user']);
+		  $data = array('answer' => $answer);
+		  $this->view->generate('login_reset_view.php',
+			  'template_view.php', $data);
+	  }
+	  else
+		  $this->view->generate('login_reset_view.php', 'template_view.php');
   }
 }
 

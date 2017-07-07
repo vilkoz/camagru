@@ -44,7 +44,7 @@ class Controller_register extends Controller
 	  $from = 'no-reply@'.$_SERVER['SERVER_NAME'];
 	  $body = 'Hi, <br/> <br/>Your login is ' ."placeholder" .
 ' <br><br>Click here to validate your account '.
-'http://localhost:8080/activate/?' . $token . ' <br/>';
+'http://localhost:8080/activate/?token=' . $token . ' &user='.$mail.'<br/>';
 	  $headers = "From: " . strip_tags($from) . "\r\n";
 	  $headers .= "Reply-To: ". strip_tags($from) . "\r\n";
 	  $headers .= "MIME-Version: 1.0\r\n";
@@ -57,6 +57,12 @@ class Controller_register extends Controller
 
   function action_register($mail, $login, $pass)
   {
+	  if (preg_match("/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/", $pass) === false)
+		  return ("Check your password complexity!");
+	  if (preg_match("/\w+/", $login) === false)
+		  return ("Enter a valid login!");
+	  if (preg_match("/^[^@\s]+@[^@\s]+\.[^@\s]+$/", $mail) === false)
+		  return ("This e-mail does not exist!");
 	  if (($ret = $this->model->register($mail, $login, $pass)) == "OK")
 	  {
 		  $mail_ret = $this->send_confirm($mail);
@@ -66,6 +72,16 @@ class Controller_register extends Controller
 	  }
 	  else
 		  return ($ret);
+  }
+
+  function action_activate()
+  {
+	  if (isset($_GET) &&
+		  isset($_GET['user']) && !empty($_GET['user']) &&
+		  isset($_GET['token']) && !empty($_GET['token']))
+		  $answer = $this->model->activate_user($_GET['user'], $_GET['token']);
+	  $data = array("answer" => $answer);
+	  $this->view->generate('activate_view.php', 'template_view.php', $data);
   }
 }
 

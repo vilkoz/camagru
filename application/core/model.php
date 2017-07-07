@@ -11,7 +11,8 @@ class Model
     include 'config/database.php';
     try
     {
-      $this->pdo = new PDO($DB_DSN, $DB_USER, $DB_PASS);
+		$this->pdo = new PDO($DB_DSN, $DB_USER, $DB_PASS);
+		$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch (PDOException $e)
     {
       echo "Error!: ".$e->getMessage()."<br/>";

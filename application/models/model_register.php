@@ -52,6 +52,25 @@ class Model_register extends Model
 	  $stmt->execute();
 	  return ($stmt->fetch()['token']);
   }
+
+  public function activate_user($user, $token)
+  {
+	  $stmt = $this->pdo->prepare("SELECT * FROM `users` WHERE `mail` = :mail AND `token` = :token");
+	  $stmt->bindParam(':mail', $user);
+	  $stmt->bindParam(':token', $token);
+	  $stmt->execute();
+	  if (!$ret = $stmt->fetch())
+		  return ("Invalid activation link!");
+	  if ($ret['active'] == 1)
+		  return ("Account already activated!");
+	  $uid = $ret['uid'];
+	  $stmt = $this->pdo->prepare("UPDATE `users` SET `active` = '1',`token` = :token WHERE `users`.`uid` = :uid");
+	  $stmt->bindParam(':uid', $uid);
+	  $stmt->bindParam(':token', $token);
+	  $token = $this->get_token($user);
+	  $stmt->execute();
+	  return ("Accaunt activated! Please login via login page.");
+  }
 }
 
  ?>
