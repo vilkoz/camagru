@@ -5,5 +5,5 @@
   <input type="email" name="mail" value="" placeholder="e-mail">
   <input type="password" name="pass" value="" placeholder="password">
   <input type="submit" name="submit" value="ok">
-  <?php print_r($_SESSION)?>
+  <p>Do not have an account? Press <a href="/register">Register</a></p>
 </form>
