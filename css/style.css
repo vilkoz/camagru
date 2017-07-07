@@ -1,0 +1,98 @@
+* {
+	margin: 0;
+}
+
+html, body {
+	height: 100%;
+}
+
+header {
+	color: white;
+	background-color: black;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: monospace;
+}
+
+header > nav {
+	margin: 0 auto;
+	min-width: 50%;
+	text-align: center;
+}
+
+nav > a {
+	text-decoration: none;
+	text-transform: uppercase;
+	padding: 15px 25px;
+	color: white;
+	display: inline-block;
+	outline: none;
+}
+
+nav > a:hover {
+	background-color: #333;
+	color: #a002a0;
+	transition: color .25s;
+}
+
+footer {
+	background-color: black;
+	color: white;
+	font-family: monospace;
+	height: 60px;
+}
+
+footer > p {
+	padding: 15px 0;
+	margin: 0 auto;
+	min-width: 50%;
+	text-align: center;
+}
+
+.page-wrap {
+	min-height: 100%;
+	margin-bottom: -60px;
+	background-image: url("../user_data/view/back.png");
+	background-position: center center;
+}
+
+.page-wrap:after {
+	height: 60px;
+	content: "";
+	display: block;
+}
+
+form.login, form.register {
+	width: 100%;
+	height: 100%;
+	margin: 10px auto;
+	/* border: 1px solid black; */
+}
+
+.form-wrap {
+	width: 304px;
+	margin: 100px auto;
+	background-color: black;
+	color: white;
+	padding: 10px;
+}
+
+form.login > input, form.register > input {
+	font-size: 25px;
+	/* height: 30px; */
+	width: 300px;
+	padding: 0;
+	margin: 0px auto 2px auto;
+}
+
+form.login > input[type="submit"], form.register > input[type="submit"] {
+	margin: 1px auto;
+	width: 304px;
+}
+
+.answer {
+	font-size: 20px;
+	color: white;
+	background-color: #aa1111;
+	text-align: center;
+}

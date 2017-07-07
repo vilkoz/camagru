@@ -1,3 +1,4 @@
+<div class="form-wrap">
 <div class="answer">
 <?php if(isset($answer)) {echo $answer;}?>
 </div>
@@ -19,3 +20,4 @@
   <br>
   <input type="submit" name="submit" value="register">
 </form>
+</div>

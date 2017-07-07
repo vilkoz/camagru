@@ -4,8 +4,10 @@
     <meta charset="utf-8">
 	<title><?php if (isset($title)) {echo $title;}?></title>
 	<?php if(!isset($_SESSION)) {session_start();}?>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
   </head>
   <body>
+	<div class="page-wrap">
 	<header>
 		<nav>
 			<a href="/">Main</a> |
@@ -28,8 +30,9 @@ else
 		</nav>
 	</header>
 	<?php include 'application/views/'.$content_view; ?>
+	</div>
 	<footer>
-		LC team @ 2017
+		<p>LC team @ 2017</p>
 	</footer>
   </body>
 </html>
