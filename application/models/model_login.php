@@ -37,7 +37,7 @@ class Model_login extends Model
       return ($row);
     }
     else
-      return ('Wrong Credentials!');
+      return ('Wrong Credentials! <a href="/login/reset">Reset?</a>');
   }
 
   public function update_pass($user, $token, $pass)

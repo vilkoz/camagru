@@ -12,6 +12,7 @@ header {
 	font-size: 20px;
 	font-weight: bold;
 	font-family: monospace;
+	box-shadow: 0px 2px 10px 5px rgba(0,0,0,0.5);
 }
 
 header > nav {
@@ -30,9 +31,11 @@ nav > a {
 }
 
 nav > a:hover {
-	background-color: #333;
-	color: #a002a0;
+	/* background-color: #333; */
+	color: rgba(246, 5, 10, 0.5);
 	transition: color .25s;
+	text-shadow: -3px 0 1px rgb(30,242,241), 3px 0 1px rgb(246,5,10);
+	transition: text-shadow .5s;
 }
 
 footer {
@@ -75,6 +78,17 @@ form.login, form.register {
 	background-color: black;
 	color: white;
 	padding: 10px;
+	box-shadow: 0px 2px 4px 4px rgba(0, 0, 0, 0.5);
+	animation: fw .25s ease forwards;
+}
+
+@keyframes fw {
+	from {
+		margin-top: 200px;
+	}
+	tp {
+		margin-top: 100px;
+	}
 }
 
 form.login > input, form.register > input {
