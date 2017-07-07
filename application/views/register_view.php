@@ -1,3 +1,6 @@
+<div class="answer">
+<?php if(isset($answer)) {echo $answer;}?>
+</div>
 <form class="register" action="" method="post">
   <input type="email" name="mail" value="" placeholder="e-mail">
   <br>

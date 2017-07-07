@@ -35,7 +35,8 @@ class Controller_login extends Controller
   function action_login($mail, $pass)
   {
     $answer = $this->model->login($mail, $pass);
-    if ($answer == 'Wrong Credentials!')
+	if ($answer == 'Wrong Credentials!' ||
+		$answer == "Please activate your accaunt via link in e-mail!")
       return ($answer);
     else
     {

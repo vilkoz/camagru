@@ -20,7 +20,9 @@ class Model_login extends Model
     $pass = $this->pass_hash($pass);
     if ($stmt->execute())
     {
-      $row = $stmt->fetch();
+		$row = $stmt->fetch();
+		if ($row['active'] == 0)
+			return ("Please activate your accaunt via link in e-mail!");
       return ($row);
     }
     else
