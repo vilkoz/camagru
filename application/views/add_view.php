@@ -1,4 +1,4 @@
-<article>
+<article class="add-edit">
 	<video style="display: none;" id="video" width="640" height="480" autoplay></video>
 	<canvas id="canvas" width="640" height="480"></canvas>
 	</br>
@@ -71,6 +71,7 @@ window.addEventListener("DOMContentLoaded", function() {
 				var caption = img_array[i]['caption'];
 				var path = img_array[i]['path'];
 				var tmp_img = document.createElement('img');
+				var tmp_div = document.createElement('div');
 				tmp_img.src = path;
 				tmp_img.alt = caption;
 				tmp_img.classList.add("perview");
@@ -86,7 +87,9 @@ window.addEventListener("DOMContentLoaded", function() {
 						req.send();
 					}
 				};
-				side.appendChild(tmp_img);
+				tmp_div.classList.add("thumbnail");
+				tmp_div.appendChild(tmp_img);
+				side.appendChild(tmp_div);
 			}
 		}
 		req.send();
@@ -119,3 +122,4 @@ window.addEventListener("DOMContentLoaded", function() {
 <aside id="side">
 sboku
 </aside>
+<div style="clear: both;"></div>

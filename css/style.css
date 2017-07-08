@@ -86,9 +86,6 @@ form.login, form.register {
 	from {
 		margin-top: 200px;
 	}
-	tp {
-		margin-top: 100px;
-	}
 }
 
 form.login > input, form.register > input {
@@ -109,4 +106,84 @@ form.login > input[type="submit"], form.register > input[type="submit"] {
 	color: white;
 	background-color: #aa1111;
 	text-align: center;
+}
+
+.gallery-wrapper {
+	margin: 0 auto;
+	animation: fw 1s ease forwards;
+}
+
+article.gallery-photo {
+	display: inline-block;
+	background: black;
+	color: white;
+	margin: 5px;
+	vertical-align: top;
+	box-shadow: 0px 2px 4px 4px rgba(0, 0, 0, 0.5);
+	padding: 5px;
+}
+
+article.gallery-photo > p {
+	width: 200px;
+	overflow: auto;
+}
+
+article.gallery-photo > p::-webkit-scrollbar {
+	background-color: black;
+}
+
+article.gallery-photo > .thumbnail:hover {
+	position: relative;
+	filter: hue-rotate(90deg);
+	transition: filter 1s;
+}
+
+article.gallery-photo > .thumbnail:after {
+	display: none;
+}
+article.gallery-photo > .thumbnail:hover:after {
+	display: block;
+	position: absolute;
+	content: "+";
+	font-size: 100px;
+	text-weight: bold;
+	text-align: center;
+	background-color: rgba(0,0,0,0.5);
+	width: 100%;
+	height: 100%;
+	/* transition: opacity .5s; */
+	animation: gp .5s ease-in forwards;
+}
+
+@keyframes gp {
+	from {opacity: 0;}
+	to {opacity: 1;}
+}
+
+.thumbnail {
+	position: relative;
+	width: 200px;
+	height: 200px;
+	overflow: hidden;
+}
+
+.thumbnail img {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	height: 100%;
+	width: auto;
+	transform: translate(-50%,-50%);
+}
+
+#side {
+	height: 480px;
+	/* width: 40%; */
+	overflow-y: scroll;
+	float: right;
+}
+
+.add-edit {
+	float: left;
+	width: 640px;
 }
