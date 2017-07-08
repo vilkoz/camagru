@@ -74,7 +74,6 @@ window.addEventListener("DOMContentLoaded", function() {
 				var tmp_div = document.createElement('div');
 				tmp_img.src = path;
 				tmp_img.alt = caption;
-				tmp_img.classList.add("perview");
 				tmp_img.onclick = function(){
 					if (confirm("Confirm picture deletion."))
 					{

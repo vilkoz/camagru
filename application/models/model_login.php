@@ -32,7 +32,7 @@ class Model_login extends Model
 	$stmt->execute();
     if ($row = $stmt->fetch())
     {
-		if ($row['active'] === 0)
+		if ($row['active'] == 0)
 			return ("Please activate your accaunt via link in e-mail!");
       return ($row);
     }

@@ -16,7 +16,7 @@ class Model_add extends Model
 			"VALUES (NULL, :uid, :path, :caption, '0')");
 		$caption = htmlspecialchars($caption, ENT_QUOTES);
 		$uid = unserialize(base64_decode($user))['uid'];
-		$path = "user_data/view/".$path;
+		$path = "/user_data/view/".$path;
 		$stmt->bindParam(":uid", $uid);
 		$stmt->bindParam(":caption", $caption);
 		$stmt->bindParam(":path", $path);
@@ -42,9 +42,9 @@ class Model_add extends Model
 		$stmt = $this->pdo->prepare("DELETE FROM `photos` WHERE `photos`.`path` = :path AND `photos`.`uid` = :uid");
 		$stmt->bindParam(":path", $real_path);
 		$stmt->bindParam(":uid", $uid);
-		$real_path = "user_data/view/".end(explode("/", $path));
+		$real_path = "/user_data/view/".end(explode("/", $path));
 		$stmt->execute();
-		$tmp = "user_data/".end(explode("/", $path));
+		$tmp = "/user_data/".end(explode("/", $path));
 		unlink($tmp);
 	}
 }
