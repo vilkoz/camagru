@@ -18,11 +18,35 @@ window.addEventListener("DOMContentLoaded", function() {
 		var page_wrap = document.getElementsByClassName("page-wrap")[0];
 		var gallery_wrap = document.getElementsByClassName("gallery-wrapper")[0];
 		var cols = Math.floor(page_wrap.offsetWidth / 220);
-		gallery_wrap.style.width = (cols * (220)) + "px";
+		let w = (cols * (220));
+		gallery_wrap.style.width = (w < 200 ? 200 : w) + "px";
 	}
 
 
 	window.onresize = function() {rearrange();}
+
+	function mouse_wheel(e) {
+		e = e || window.event;
+		if (e.preventDefault)
+			e.preventDefault();
+		e.returnValue = false; 
+	}
+
+	function disable_body_scroll() {
+		let body = document.getElementsByTagName('body')[0];
+		body.addEventListener('DOMMouseScroll', mouse_wheel, false);
+		/* window.onmousewheel = document.onmousewheel = mouse_wheel; */
+		body.onmousewheel = mouse_wheel;
+		let comm = document.getElementsByClassName('perview-comments')[0];
+		comm.onmousewheel = false;
+	}
+
+	function enable_body_scroll() {
+		let body = document.getElementsByTagName('body')[0];
+		body.removeEventListener('DOMMouseScroll', mouse_wheel, false);
+		body.onmousewheel = false;
+		/* window.onmousewheel = document.onmousewheel = false; */
+	}
 
 	var hide_perview = function() {
 		var page_wrap = document.getElementsByClassName('page-wrap')[0];
@@ -31,6 +55,8 @@ window.addEventListener("DOMContentLoaded", function() {
 		page_wrap.removeChild(cover);
 		page_wrap.removeChild(perw);
 		document.getElementsByTagName('body')[0].classList.remove('noscroll');
+		document.getElementsByTagName('body')[0] = body_scroll_height;
+		/* enable_body_scroll(); */
 	}
 
 	var insert_response_to_elem = function(element, response){
@@ -48,6 +74,7 @@ window.addEventListener("DOMContentLoaded", function() {
 			insert_response_to_elem(element, this.responseText);
 			perview_listeners();
 			get_perw_like_count();
+			align_perview_photo();
 		}
 		req.send();
 	}
@@ -142,6 +169,7 @@ window.addEventListener("DOMContentLoaded", function() {
 					let path = img_src[img_src.length - 1];
 					req.open('get', '/gallery/delete_photo/'+path, true);
 					req.onload = function() {
+						console.log(this.responseText);
 						if (this.responseText != 'OK')
 							return;
 						hide_perview();
@@ -153,6 +181,19 @@ window.addEventListener("DOMContentLoaded", function() {
 					req.send();
 				}
 			});
+	}
+
+	var align_perview_photo = function(){
+		let div = document.getElementsByClassName('perview-photo')[0];
+		let img = div.getElementsByTagName('img')[0];
+		img.onload = function() {
+			if (img.offsetHeight > div.offsetHeight)
+			{
+				img.style.height = "100%";
+				img.style.width = "auto";
+				img.style.margin = "0 auto";
+			}
+		}
 	}
 
 	var get_perw_like_count = function() {
@@ -169,6 +210,8 @@ window.addEventListener("DOMContentLoaded", function() {
 		req.send();
 	}
 
+	var body_scroll_height = 0;
+
 	var show_perview = function(element) {
 		var page_wrap = document.getElementsByClassName('page-wrap')[0];
 		var new_div = document.createElement("div");
@@ -182,9 +225,9 @@ window.addEventListener("DOMContentLoaded", function() {
 		var img = element.getElementsByTagName('img')[0];
 		let tmp_arr = img.src.split("/");
 		var img_name = tmp_arr[tmp_arr.length - 1];
-		console.log(img_name);
 		get_perw_view(img_name, perw);
 		page_wrap.appendChild(perw);
+		body_scroll_height = document.getElementsByTagName('body')[0];
 		document.getElementsByTagName('body')[0].classList.add('noscroll');
 	}
 

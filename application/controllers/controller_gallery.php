@@ -141,8 +141,10 @@ class Controller_gallery extends Controller
 			return;
 		}
 		$uid = unserialize(base64_decode($_SESSION['user']))['uid'];
-		$this->model->delete($path, $uid);
-		echo "OK";
+		if ($this->model->delete($path, $uid))
+			echo "OK";
+		else
+			echo "This is not your photo!";
 	}
 }
 ?>

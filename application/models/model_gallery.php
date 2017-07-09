@@ -112,12 +112,26 @@ ORDER BY `photos`.`pid` DESC LIMIT 16 OFFSET 0".intval($offset * 16));
 
 	public function delete($path, $uid)
 	{
-		$stmt = $this->pdo->prepare("DELETE FROM `photos` WHERE `photos`.`path` = :path AND `photos`.`uid` = ".intval($uid));
+		$stmt = $this->pdo->prepare("SELECT count(`caption`) AS 'number'
+			FROM `photos`
+			WHERE `photos`.`path` = :path
+			AND `photos`.`uid` = ".intval($uid));
 		$stmt->bindParam(":path", $real_path);
 		$real_path = "/user_data/view/".end(explode("/", $path));
 		$stmt->execute();
-		$tmp = "user_data/".end(explode("/", $path));
-		unlink($tmp);
+		if ($stmt->fetch()['number'] != 0)
+		{
+			$stmt = $this->pdo->prepare("DELETE FROM `photos` WHERE `photos`.`path` = :path AND `photos`.`uid` = ".intval($uid));
+			$stmt->bindParam(":path", $real_path);
+			if ($stmt->execute())
+			{
+				$tmp = "user_data/".end(explode("/", $path));
+				unlink($tmp);
+			}
+			return True;
+		}
+		else
+			return False;
 	}
 }
 ?>

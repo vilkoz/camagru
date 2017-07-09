@@ -67,9 +67,11 @@ class Controller_add extends Controller
 			$img = str_replace('data:image/png;base64,', '', $img);
 			$img = str_replace(' ', '+', $img);
 			$data = base64_decode($img);
+			$image = imagecreatefromstring($data);
 			$file = uniqid() . '.png';
 			$this->model->add_image($file, $_POST['caption'], $_SESSION['user']);
-			echo (file_put_contents(UPLOAD_DIR.$file, $data)) ? $file : "Error!";
+			/* echo (file_put_contents(UPLOAD_DIR.$file, $data)) ? $file : "Error!"; */
+			echo (imagepng($image, UPLOAD_DIR.$file)) ? $file : "Error!";
 		}
 	}
 

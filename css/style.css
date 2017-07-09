@@ -6,6 +6,10 @@ html, body {
 	height: 100%;
 }
 
+body {
+	background: black;
+}
+
 .not_found_div {
 	height: 100%;
 }
@@ -208,9 +212,127 @@ article.gallery-photo > .thumbnail:hover:after {
 
 #side {
 	height: 480px;
-	/* width: 40%; */
-	overflow-y: scroll;
+	overflow-y: auto;
 	float: right;
+	margin-top: 18px;
+}
+#side::-webkit-scrollbar {
+	/* display: none; */
+	width: 10px;
+}
+
+.add-wrap {
+	width: 855px;
+	margin: 0 auto;	
+	animation: fw .25s ease forwards;
+}
+
+form.login > input, form.register > input {
+	font-size: 25px;
+	/* height: 30px; */
+	width: 300px;
+	padding: 0;
+	margin: 0px auto 2px auto;
+}
+
+form.login > input[type="submit"], form.register > input[type="submit"] {
+	margin: 1px auto;
+	width: 304px;
+}
+
+.answer {
+	font-size: 20px;
+	color: white;
+	background-color: #aa1111;
+	text-align: center;
+}
+
+.gallery-wrapper {
+	margin: 0 auto;
+	animation: fw 1s ease forwards;
+}
+
+article.gallery-photo {
+	display: inline-block;
+	background: black;
+	color: white;
+	margin: 5px;
+	vertical-align: top;
+	box-shadow: 0px 2px 4px 4px rgba(0, 0, 0, 0.5);
+	padding: 5px;
+	animation: gpa .5s ease-in forwards;
+}
+
+@keyframes gpa {
+	from {margin-top: 100px;}
+	to {margin-top: 0px;}
+}
+
+article.gallery-photo > p {
+	width: 200px;
+	overflow: auto;
+}
+
+article.gallery-photo > p::-webkit-scrollbar {
+	background-color: black;
+}
+
+article.gallery-photo > .thumbnail:hover {
+	position: relative;
+}
+
+article.gallery-photo > .thumbnail:after {
+	display: none;
+}
+article.gallery-photo > .thumbnail:hover:after {
+	display: block;
+	position: absolute;
+	content: "+";
+	font-size: 100px;
+	text-weight: bold;
+	text-align: center;
+	background-color: rgba(0,0,0,0.5);
+	width: 100%;
+	height: 100%;
+	animation: gp .5s ease-in forwards, gps .5s ease-in forwards;
+	/* text-shadow: -3px 0 1px rgb(30,242,241), 3px 0 1px rgb(246,5,10); */
+	/* transition: text-shadow 2s; */
+}
+
+@keyframes gp {
+	from {opacity: 0;}
+	to {opacity: 1;}
+}
+@keyframes gps {
+	from {text-shadow: 0;}
+	to {text-shadow: -3px 0 1px rgb(30,242,241), 3px 0 1px rgb(246,5,10);}
+}
+
+.thumbnail {
+	position: relative;
+	width: 200px;
+	height: 200px;
+	overflow: hidden;
+}
+
+.thumbnail img {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	height: 100%;
+	width: auto;
+	transform: translate(-50%,-50%);
+}
+
+#side {
+	height: 480px;
+	overflow-y: auto;
+	float: right;
+	margin-top: 18px;
+}
+#side::-webkit-scrollbar {
+	/* display: none; */
+	width: 10px;
 }
 
 .add-wrap {
@@ -258,6 +380,7 @@ article.gallery-photo > .thumbnail:hover:after {
 }
 .perview-photo > img{
 	width: 100%;
+	height: auto;
 }
 
 .perview-photo:hover {
@@ -331,9 +454,11 @@ article.gallery-photo > .thumbnail:hover:after {
 }
 
 body.noscroll {
-    position: fixed; 
-    overflow-y: scroll;
-    width: 100%;
+    /* position: fixed; */ 
+    /* overflow-y: scroll; */
+    overflow: hidden;
+	transition: overflow .25s;
+    /* width: 100%; */
 }
 .perview-info {
 	width: 100%;
@@ -377,9 +502,28 @@ body.noscroll {
 }
 
 #sup {
-	width: 640px;
-	height: 128px;
+	width: 143px;
+	height: 480px;
 	overflow-x: auto;
+	position: absolute;
+	left: -200px;
+	transition: left .5s;
+}
+
+#sup.activated {
+	left: 0px;
+	transition: left .5s;
+}
+
+#show-sup {
+	position: absolute;
+	left: 3px;
+	top: 3px;
+	font-weight: 700;
+	font-size: 50px;
+	color: white;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+	cursor: pointer;
 }
 
 .sticker {
@@ -388,11 +532,418 @@ body.noscroll {
 
 #div-canv {
 	position: relative;
+	width: 640px;
+	height: 480px;
+	overflow: hidden;
+	display: flex;
+    align-items: center;
+	background: black;
 }
 #div-canv > img{
 	user-select: none;
 }
 
+.sticker-draw {
+	transition: all 0.2s linear;
+	cursor: -webkit-grab;
+}
+
 .sticker-draw:hover {
 	border: 1px solid red;
+}
+
+#select-cam, #select-file {
+	display: inline-block;
+	color: white;
+	background: linear-gradient(black, pink);
+	cursor: pointer;
+}
+#select-cam.active, #select-file.active {
+	background: linear-gradient(red, pink);
+}
+
+#image-loader {
+	position: absolute;
+	top: 40%;
+	left: 40%;
+	display: none;
+	color: white;
+	font-size: 1em;
+}
+
+#canvas-file, #canvas, #canvas-send {
+	background: black;
+}
+
+#canvas-send, #canvas-file {
+	width: 100%;
+	height: auto;
+	margin: 0 auto;
+}
+
+#canvas-send {
+	float: initial;
+	animation: fw .25s ease forwards;
+}
+
+button#send, button#snap {
+	font-size: 25px;
+	/* height: 30px; */
+	width: 300px;
+	padding: 0;
+	/* margin: 0px auto 2px auto; */
+	/* margin: 10px auto; */
+	display: inline-block;
+	/* float: left; */
+	box-shadow: 0px 2px 9px 2px rgba(0,0,0,1);
+	margin-bottom: 20px;
+}
+
+input#caption {
+	/* margin: 10px auto; */
+	width: 300px;
+	background: black;
+	border-width: 0px;
+	box-shadow: 0px 2px 9px 2px rgba(0,0,0,1);
+	color: white;
+	font-size: 25px;
+	display: inline-block;
+	/* float: right; */
+	margin-bottom: 20px;
+	margin-left: 10px;
+}
+
+.add-edit {
+	float: left;
+	width: 640px;
+}
+
+.perview-cover {
+	display: block;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.5);
+	top: 0;
+	left: 0;
+	z-index: 1;
+	animation: gp .25s ease-in forwards;
+}
+
+.perview {
+	display: block;
+	position: fixed;
+	width: 80%;
+	min-height: 500px;
+	height: 80%;
+	background-color: rgba(0,0,0,1);
+	box-shadow: 2px 2px 10px 5px rgba(0,0,0,0.5);
+	top: 10%;
+	left: 10%;
+	z-index: 2;
+	animation: gpa .25s ease-out forwards;
+}
+
+.perview-photo {
+	width: 60%;
+	float: left;
+    display: flex;
+    align-items: center;
+	height: 100%;
+}
+.perview-photo > img{
+	width: 100%;
+	height: auto;
+}
+
+.perview-photo:hover {
+	position: relative;
+}
+
+.perview-photo:after {
+	display: block;
+}
+.perview-photo:hover:after {
+	color: rgba(255,255,255,0.5);
+	display: block;
+	position: absolute;
+	content: "\02665";
+	font-size: 100px;
+	text-weight: bold;
+	text-align: center;
+	background-color: rgba(0,0,0,0.5);
+	width: 100%;
+	height: 100%;
+	animation: gp .5s ease-in forwards, gps .5s ease-in forwards;
+}
+
+.perview-comments {
+	width: 40%;
+	float: right;
+	/* background-color: black; */
+	background: linear-gradient(-90deg, #909, #000);
+	height: 100%;
+	color: white;
+	overflow-y: auto;
+	overflow-x: hide;
+}
+
+.perview-comments::-webkit-scrollbar {
+	/* display: none; */
+	width: 2px;
+}
+
+.comment {
+	padding: 5px 10px;
+	width: 90%;
+	margin: 0 auto;
+	animation: comm 2s ease-in forwards;
+	font-family: monospace;
+	overflow-wrap: break-word;
+}
+
+@keyframes comm {
+	from {text-shadow: -3px 0 1px rgb(30,242,241), 3px 0 1px rgb(246,5,10);}
+	to {text-shadow: 0;}
+}
+
+.perview-comments > input[type="text"] {
+	margin: 10px auto;
+	width: 90%;
+	background: black;
+	border-width: 0px;
+	box-shadow: 0px 2px 9px 2px rgba(0,0,0,1);
+	color: white;
+	font-size: 15px;
+	display: block;
+}
+
+.perview-comments > input:focus {
+	outline: none;
+}
+
+.perview-comments > button {
+	display: none;
+}
+
+body.noscroll {
+    /* position: fixed; */ 
+    /* overflow-y: scroll; */
+    overflow: hidden;
+	transition: overflow .25s;
+    /* width: 100%; */
+}
+.perview-info {
+	width: 100%;
+}
+.perview-info > #info {
+	font-family: monospace;
+	margin: 10px auto;
+	width: 90%;
+	display: block;
+	text-align: center;
+}
+
+.perview-info > b {
+	font-family: monospace;
+	margin: 10px auto;
+	width: 90%;
+	border-bottom: 1px solid red;
+	display: block;
+	text-align: center;
+}
+
+.perview-settings {
+	position: absolute;
+	top: 3px;
+	right: 3px;
+	width: 14px;
+	cursor: pointer;
+}
+
+.perview-settings-open {
+	display: none;
+	background-color: red;
+	position: absolute;
+	right: 3px;
+	top: 30px;
+	font-family: monospace;
+	cursor: pointer;
+}
+.perview-settings-open:hover {
+	text-decoration: underline;
+}
+
+#sup {
+	width: 143px;
+	height: 480px;
+	overflow-x: auto;
+	position: absolute;
+	left: -200px;
+	transition: left .5s;
+}
+
+#sup.activated {
+	left: 0px;
+	transition: left .5s;
+}
+
+#show-sup {
+	position: absolute;
+	left: 3px;
+	top: 3px;
+	font-weight: 700;
+	font-size: 50px;
+	color: white;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+	cursor: pointer;
+}
+
+.sticker {
+	display: inline-block;
+}
+
+#div-canv {
+	position: relative;
+	width: 640px;
+	height: 480px;
+	overflow: hidden;
+	display: flex;
+    align-items: center;
+	background: black;
+}
+#div-canv > img{
+	user-select: none;
+}
+
+.sticker-draw {
+	transition: all 0.2s linear;
+	cursor: -webkit-grab;
+}
+
+.sticker-draw:hover {
+	border: 1px solid red;
+}
+
+#select-cam, #select-file {
+	display: inline-block;
+	color: white;
+	background: linear-gradient(black, pink);
+	cursor: pointer;
+}
+#select-cam.active, #select-file.active {
+	background: linear-gradient(red, pink);
+}
+
+#image-loader {
+	position: absolute;
+	top: 40%;
+	left: 40%;
+	display: none;
+	color: white;
+	font-size: 1em;
+}
+
+#canvas-file, #canvas, #canvas-send {
+	background: black;
+}
+
+#canvas-send, #canvas-file {
+	width: 100%;
+	height: auto;
+	margin: 0 auto;
+}
+
+button#send, button#snap {
+	font-size: 25px;
+	/* height: 30px; */
+	width: 300px;
+	padding: 0;
+	/* margin: 0px auto 2px auto; */
+	/* margin: 10px auto; */
+	display: inline-block;
+	/* float: left; */
+	box-shadow: 0px 2px 9px 2px rgba(0,0,0,1);
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+button#send {
+	display: block;
+	margin: 10px auto;
+}
+
+input#caption {
+	/* margin: 10px auto; */
+	width: 300px;
+	background: black;
+	border-width: 0px;
+	box-shadow: 0px 2px 9px 2px rgba(0,0,0,1);
+	color: white;
+	font-size: 25px;
+	display: inline-block;
+	/* float: right; */
+	margin-bottom: 10px;
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+.send {
+	float: initial;
+	margin: 0 auto;
+}
+
+@media only screen and (max-device-width: 480px) {
+	header {
+		font-size: 10em;
+	}
+
+	.thumbnail {
+		width: 100%;
+		height: 500px;
+	}
+
+	article.gallery-photo {
+		display: block;
+		font-size: 5em;
+	}
+
+	article.gallery-photo > p {
+		width: 100%;
+	}
+	.perview-comments, .perview-photo {
+		float: none;
+		width: auto;
+	}
+	.perview-comments, .perview-comments > input#new-comment {
+		font-size: 3em;
+	}
+	.perview-comments > input#new-comment, .answer{
+		font-size: 1em;
+	}
+
+	footer {
+		font-size: 3em;
+	}
+
+	.perview {
+		overflow: auto;
+	}
+
+	.form-wrap {
+		width: 80%;
+		font-size: 3em;
+	}
+
+	form.login > input, form.register > input{
+		display: block;
+		/* height: 1em; */
+		font-size: 1em;
+		width: 80% !important;
+		margin: 0 auto !important;
+	}
+
+	form.login > br, form.register > br {
+		display: none;
+	}
+	
 }
