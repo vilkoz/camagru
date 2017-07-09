@@ -3,8 +3,14 @@
 </div>
 <div class="perview-comments">
 <div class="perview-info">
-<?php if(isset($comments[0]))
-echo "<b>".$comments[0]['caption']."</b>";?>
+<div class="perview-settings">
+&#8942;
+</div>
+<div class="perview-settings-open">
+<span id="delete">delete</span>
+</div>
+<?php
+echo "<b>".$info['caption']."</b>";?>
 <div id="info">
 </div>
 </div>

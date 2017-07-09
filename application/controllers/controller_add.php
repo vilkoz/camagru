@@ -72,5 +72,16 @@ class Controller_add extends Controller
 			echo (file_put_contents(UPLOAD_DIR.$file, $data)) ? $file : "Error!";
 		}
 	}
+
+	public function action_load_sup()
+	{
+		if (!isset($_SESSION))
+			session_start();
+		if (!isset($_SESSION['user']) || empty($_SESSION['user']))
+		{
+			echo "you should be logged in to perform this action!";
+		}
+		echo json_encode($this->model->load_sup());
+	}
 }
 ?>

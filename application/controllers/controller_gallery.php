@@ -39,8 +39,9 @@ class Controller_gallery extends Controller
 			return;
 		}
 		$comments = $this->model->get_comments("/user_data/view/".$path);
+		$info = $this->model->get_perview_info("/user_data/view/".$path);
 		$data = array('path' => "/user_data/view/".$path,
-		'comments' => $comments);
+		'comments' => $comments, 'info' => $info);
 		$this->view->generate("gallery_perview_view.php",
 			"template_empty_view.php", $data);
 	}
@@ -120,6 +121,28 @@ class Controller_gallery extends Controller
 			return;
 		}
 		echo $this->model->count_likes("/user_data/view/".$path);
+	}
+
+	public function action_delete_photo()
+	{
+		if (!isset($_SESSION))
+			session_start();
+		if (!isset($_SESSION['user']) || empty($_SESSION['user']))
+		{
+			echo "you should be logged in to perform this action!";
+			return ;
+		}
+		$routes = explode('/', $_SERVER['REQUEST_URI']);
+		if (isset($routes[3]))
+			$path = $routes[3];
+		else
+		{
+			echo "Parrameter missing!1";
+			return;
+		}
+		$uid = unserialize(base64_decode($_SESSION['user']))['uid'];
+		$this->model->delete($path, $uid);
+		echo "OK";
 	}
 }
 ?>

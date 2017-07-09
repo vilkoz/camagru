@@ -44,8 +44,18 @@ class Model_add extends Model
 		$stmt->bindParam(":uid", $uid);
 		$real_path = "/user_data/view/".end(explode("/", $path));
 		$stmt->execute();
-		$tmp = "/user_data/".end(explode("/", $path));
+		$tmp = "user_data/".end(explode("/", $path));
 		unlink($tmp);
+	}
+
+	public function load_sup()
+	{
+		$arr = array();
+		for ($i = 1; $i <= 25; $i++)
+		{
+			$arr[] = "/user_data/stickers/".$i.".png";
+		}
+		return ($arr);
 	}
 }
 ?>

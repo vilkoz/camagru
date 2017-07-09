@@ -6,6 +6,27 @@ html, body {
 	height: 100%;
 }
 
+.not_found_div {
+	height: 100%;
+}
+
+.not_found {
+	color: white;
+	text-align: center;
+	animation: nf 1s ease-out forwards;
+	animation-direction: alternate;
+	animation-iteration-count: infinite;
+	font-size: 50px;
+	display: block;
+	margin-top: 200px;
+	font-family: monospace;
+}
+
+@keyframes nf {
+	from {text-shadow: 0;}
+	to {text-shadow: -5px 0 5px rgb(30,242,241), 5px 0 5px rgb(246,5,10);}
+}
+
 header {
 	color: white;
 	background-color: black;
@@ -192,6 +213,11 @@ article.gallery-photo > .thumbnail:hover:after {
 	float: right;
 }
 
+.add-wrap {
+	width: 855px;
+	margin: 0 auto;	
+}
+
 .add-edit {
 	float: left;
 	width: 640px;
@@ -327,4 +353,46 @@ body.noscroll {
 	border-bottom: 1px solid red;
 	display: block;
 	text-align: center;
+}
+
+.perview-settings {
+	position: absolute;
+	top: 3px;
+	right: 3px;
+	width: 14px;
+	cursor: pointer;
+}
+
+.perview-settings-open {
+	display: none;
+	background-color: red;
+	position: absolute;
+	right: 3px;
+	top: 30px;
+	font-family: monospace;
+	cursor: pointer;
+}
+.perview-settings-open:hover {
+	text-decoration: underline;
+}
+
+#sup {
+	width: 640px;
+	height: 128px;
+	overflow-x: auto;
+}
+
+.sticker {
+	display: inline-block;
+}
+
+#div-canv {
+	position: relative;
+}
+#div-canv > img{
+	user-select: none;
+}
+
+.sticker-draw:hover {
+	border: 1px solid red;
 }

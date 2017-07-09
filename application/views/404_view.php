@@ -1,2 +1,3 @@
-<h1>Ooops! Page not found!</h1>
-<a href="/">go back</a>
+<div class="not_found_div">
+<h1 class="not_found">Ooops! Page not found!</h1>
+</div>

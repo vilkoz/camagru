@@ -11,13 +11,14 @@
 /* 	echo "</article>\n"; */
 /* } */
 ?>
+</div>
 <script>
 window.addEventListener("DOMContentLoaded", function() {
 	var rearrange = function() {
 		var page_wrap = document.getElementsByClassName("page-wrap")[0];
 		var gallery_wrap = document.getElementsByClassName("gallery-wrapper")[0];
 		var cols = Math.floor(page_wrap.offsetWidth / 220);
-		gallery_wrap.style.width = (cols * (220 + 5)) + "px";
+		gallery_wrap.style.width = (cols * (220)) + "px";
 	}
 
 
@@ -121,6 +122,36 @@ window.addEventListener("DOMContentLoaded", function() {
 					info.innerHTML = "likes: " + like_num;
 				}
 				req.send();
+			});
+		document.getElementsByClassName("perview-settings")[0]
+			.addEventListener('click', function(){
+				let div = document
+					.getElementsByClassName("perview-settings-open")[0];
+			   if(div.style.display == 'block')
+				  div.style.display = 'none';
+			   else
+				  div.style.display = 'block';
+			});
+		document.getElementById('delete')
+			.addEventListener('click', function(){
+				if (confirm("Are you shure want to delete this photo?"))
+				{
+					let req = new XMLHttpRequest();
+					let img_src = document
+						.querySelector('.perview-photo > img').src.split("/");
+					let path = img_src[img_src.length - 1];
+					req.open('get', '/gallery/delete_photo/'+path, true);
+					req.onload = function() {
+						if (this.responseText != 'OK')
+							return;
+						hide_perview();
+						document.getElementsByClassName('gallery-wrapper')[0]
+							.innerHTML = "";
+						current_page = 0;
+						load_photos();
+					}
+					req.send();
+				}
 			});
 	}
 
@@ -232,4 +263,3 @@ window.addEventListener("DOMContentLoaded", function() {
 
 }, false);
 </script>
-</div>

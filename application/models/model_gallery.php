@@ -27,10 +27,23 @@ ORDER BY `photos`.`pid` DESC LIMIT 16 OFFSET 0".intval($offset * 16));
 		return ($out);
 	}
 
+	public function get_perview_info($pic_path)
+	{
+		$stmt = $this->pdo->prepare(
+			"SELECT `photos`.`caption`,`users`.`login`
+			FROM `photos`
+			INNER JOIN `users` ON `photos`.`uid` = `users`.`uid`
+			WHERE `photos`.`path` = :path");
+		$stmt->bindParam(':path', $pic_path);
+		$stmt->execute();
+		$row = $stmt->fetch();
+		return ($row);
+	}
+
 	public function get_comments($pic_path)
 	{
 		$stmt = $this->pdo->prepare(
-			"SELECT `users`.`login`, `comments`.`text`, `comments`.`cid`, `photos`.`caption` FROM `comments`
+			"SELECT `users`.`login`, `comments`.`text`, `comments`.`cid` FROM `comments`
 			INNER JOIN `photos` ON `photos`.`pid` = `comments`.`pid`
 			INNER JOIN `users` ON `users`.`uid` = `comments`.`uid`
 			WHERE `photos`.`path` = :path
@@ -95,6 +108,16 @@ ORDER BY `photos`.`pid` DESC LIMIT 16 OFFSET 0".intval($offset * 16));
 			$stmt->execute();
 		}
 		return($this->count_likes($pic_path));
+	}
+
+	public function delete($path, $uid)
+	{
+		$stmt = $this->pdo->prepare("DELETE FROM `photos` WHERE `photos`.`path` = :path AND `photos`.`uid` = ".intval($uid));
+		$stmt->bindParam(":path", $real_path);
+		$real_path = "/user_data/view/".end(explode("/", $path));
+		$stmt->execute();
+		$tmp = "user_data/".end(explode("/", $path));
+		unlink($tmp);
 	}
 }
 ?>
