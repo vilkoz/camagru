@@ -35,9 +35,14 @@ class Controller_login extends Controller
   function action_login($mail, $pass)
   {
     $answer = $this->model->login($mail, $pass);
-	if ($answer == 'Wrong Credentials! <a href="/login/reset">Reset?</a>' ||
-		$answer == "Please activate your accaunt via link in e-mail!")
+	  if ($answer == 'Wrong Credentials! <a href="/login/reset">Reset?</a>' ||
+		  $answer == "Please activate your accaunt via link in e-mail!")
+		{
+		  if ($answer == "Please activate your accaunt via link in e-mail!")
+		    $answer .= " <a href='/register/send_confirm/?token" .
+		      base64_encode($mail) ."'>Resend?</a>";
       return ($answer);
+		}
     else
     {
 		if (!isset($_SESSION))

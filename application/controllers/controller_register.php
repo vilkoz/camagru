@@ -35,6 +35,19 @@ class Controller_register extends Controller
 		$data['answer'] = $answer;
     $this->view->generate('register_view.php', 'template_view.php', $data);
   }
+  
+  function action_send_confirm()
+  {
+  	if (isset($_GET) && !empty($_GET['token']))
+  		$answer = "E-mail was resend!".
+  			$this->send_confirm(base64_decode($_GET['token']));
+  	else
+  		$answer = 'NO WRONG TOKEN!';
+		$data = array('title' => 'Confirmation link resend.');
+		if (isset($answer))
+			$data['answer'] = $answer;
+	    $this->view->generate('login_reset_view.php', 'template_view.php', $data);
+  }
 
   function send_confirm($mail)
   {
