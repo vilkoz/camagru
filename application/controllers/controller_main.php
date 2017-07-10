@@ -8,7 +8,7 @@ class Controller_Main extends Controller
   {
 	  $this->view->generate('main_view.php', 'template_view.php',
 		array('title' => 'Camagru'));
-      $host = 'http://'.$_SERVER['HTTP_HOST']."/";
+      $host = 'https://'.$_SERVER['HTTP_HOST']."/";
       header('Location:'.$host.'gallery');
   }
 }

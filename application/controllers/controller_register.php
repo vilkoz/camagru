@@ -16,7 +16,7 @@ class Controller_register extends Controller
     session_start();
     if (isset($_SESSION['user']) && !empty($_SESSION['user']))
     {
-      $host = 'http://'.$_SERVER['HTTP_HOST']."/";
+      $host = 'https://'.$_SERVER['HTTP_HOST']."/";
       header('Location:'.$host.'main');
     }
   }
