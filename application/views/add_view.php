@@ -26,4 +26,4 @@ sboku
 	<button id="send" style="display:none">Send Photo</button>
 <div style="clear: both;"></div>
 </div>
-<img src="http://placehold.it/150/000000/000000" style="visibility: hidden; position: absolute; top: 0;" id="ghost">
+<img src="https://placehold.it/150/000000/000000" style="visibility: hidden; position: absolute; top: 0;" id="ghost">
