@@ -11,7 +11,14 @@ class Route
     $routes = explode('/', $_SERVER['REQUEST_URI']);
 
     if (!empty($routes[1]))
+    {
+      if ($routes[1] == 'favicon.ico')
+      {
+        Route::show_favicon();
+        return ;
+      }
       $controller_name = $routes[1];
+    }
 
     if (!empty($routes[2]))
       $action_name = $routes[2];
@@ -46,6 +53,18 @@ class Route
     header('HTTP/1.1 404 Not Found');
     header('Status: 404 Not Found');
     header('Location:'.$host.'404');
+  }
+  
+  function show_favicon()
+  {
+		header("Content-Type: image/png");
+    echo base64_decode(
+      'AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAA'.
+      'AAAAAAAAAAAA/4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'.
+      'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEREQEREQAAEQARARARAAARABEB'.
+      'EBEAABEAAAEQAAAAEQAAARAAAAARAAABEAAAABEAAAEQAAAAEQAAARAAAAARAAABEBEAABEAAAEQ'.
+      'EQAAEQAAARERAAAAAAAAAAAAAAAAAAAAAAD//wAA//8AAP//AADAgwAAzJMAAMyTAADPnwAAz58A'.
+      'AM+fAADPnwAAz58AAM+TAADPkwAAz4MAAP//AAD//wAA');
   }
 }
 
