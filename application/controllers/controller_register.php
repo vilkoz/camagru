@@ -53,15 +53,18 @@ class Controller_register extends Controller
   {
 	  $token = $this->model->get_token($mail);
 	  $to = $mail;
-	  $subject = "New User Validation";
-	  $from = 'no-reply@'.$_SERVER['SERVER_NAME'];
+	  $subject = "New User Validation" . "\r\n";
+	  $from = 'no-reply@'.$_SERVER['SERVER_NAME'] . "\r\n";
 	  $body = 'Hi, <br/> <br/>Your login is ' ."placeholder" .
 ' <br><br>Click here to validate your account '.
-'http://localhost:8080/activate/?token=' . $token . ' &user='.$mail.'<br/>';
+'http://localhost:8080/activate/?token=' . $token . ' &user='.$mail.'<br/>'
+. "\r\n";
 	  $headers = "From: " . strip_tags($from) . "\r\n";
 	  $headers .= "Reply-To: ". strip_tags($from) . "\r\n";
 	  $headers .= "MIME-Version: 1.0\r\n";
 	  $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+	  file_put_contents("upload_data/mail.txt",
+		  $headers . "Subject: " . $subject . $body);
 	  if (mail($to, $subject, $body, $headers))
 		  return ("mail accepted for deliverly");
 	  else

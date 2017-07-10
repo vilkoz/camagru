@@ -16,7 +16,7 @@ class Controller_add extends Controller
 			$host = 'http://'.$_SERVER['HTTP_HOST']."/";
 			header('Location:'.$host.'main');
 		}
-		$this->view->generate('add_view.php', 'template_view.php');
+		$this->view->generate('add_view.php', 'template_view.php', array('title' => 'New photo'));
 	}
 
 	public function action_load()
