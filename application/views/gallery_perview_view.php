@@ -15,7 +15,7 @@ echo "<b>".$info['caption']."</b>";?>
 </div>
 </div>
 <div class="comments-wrap">
-<?php 
+<?php
 foreach ($comments as $c)
 {
 	echo "<div class='comment'>";
@@ -35,9 +35,6 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user']))
 	echo "<input id='new-comment' type='text' placeholder='Enter your comment'>";
 	echo "<button id='send-comment' value='send'>Send</button>";
 ?>
-<script>
-	console.log('I\'m not working!');
-</script>
 <?php } ?>
 </div>
 <div style="clear:both;">

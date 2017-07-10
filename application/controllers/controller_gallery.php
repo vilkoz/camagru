@@ -14,7 +14,7 @@ class Controller_gallery extends Controller
 		if (isset($routes[3]))
 			$offset = $routes[3];
 		$img_arr = $this->model->get_images($offset);
-		$data = array('img_arr' => $img_arr);
+		$data = array('img_arr' => $img_arr, 'title' => 'Gallery');
 		$this->view->generate('gallery_view.php', 'template_view.php', $data);
 	}
 
