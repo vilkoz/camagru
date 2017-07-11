@@ -212,6 +212,9 @@ window.addEventListener("DOMContentLoaded", function() {
 		{
 			arr[i].addEventListener('click', function() {
 				console.log("works");
+				let snap = document.getElementById('snap');
+				if (snap.disabled)
+					snap.disabled = false;
 				draw_sticker_on_canvas(this.src);
 				document.getElementById('sup').classList.remove('activated');
 				/* document.getElementById('show-sup').style.display = "block"; */
@@ -307,6 +310,9 @@ window.addEventListener("DOMContentLoaded", function() {
 				.classList.contains('active'))
 				loader.style.display = "block";
 			document.getElementById('send').style.display = "none";
+			console.log('disabled:', document.getElementById('snap').disabled);
+			document.getElementById('snap').disabled = true;
+			console.log('disabled:', document.getElementById('snap').disabled);
 			document.getElementById('snap').style.display = "inline-block";
 			document.getElementById('caption').style.display = "inline-block";
 			document.getElementById('select-file').style.display = "inline-block";
