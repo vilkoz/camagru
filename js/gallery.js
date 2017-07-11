@@ -95,16 +95,21 @@ window.addEventListener("DOMContentLoaded", function() {
 	}
 
 	var perview_listeners = function(){
-		document.getElementById('new-comment')
-			.addEventListener("keyup", function(event){
+		let new_c = document.getElementById('new-comment');
+		if (new_c)	
+		{
+			new_c.addEventListener("keyup", function(event){
 				event.preventDefault();
 				if (event.keyCode == 13){
 					document.getElementById('send-comment').click();
 				}
 			});
+		}
 
-		document.getElementById('send-comment')
-			.addEventListener('click', function(){
+		let send_c = document.getElementById('send-comment');
+		if (send_c)
+		{
+			send_c.addEventListener('click', function(){
 			console.log('clicked');
 			let req = new XMLHttpRequest();
 			let data = new FormData();
@@ -121,6 +126,7 @@ window.addEventListener("DOMContentLoaded", function() {
 			req.send(data);
 			document.getElementById('new-comment').value = '';
 			});
+		}
 		document.getElementsByClassName("perview-photo")[0]
 			.addEventListener('click', function(){
 				let req = new XMLHttpRequest();
@@ -223,7 +229,11 @@ window.addEventListener("DOMContentLoaded", function() {
 		let thumb = document.createElement('div');
 		thumb.classList.add('thumbnail');
 		let pic = document.createElement('img');
-		pic.src = img_arr['path'];
+	
+		let tmp = img_arr['path'].split('/');
+		let path = tmp[tmp.length - 1];
+		
+		pic.src = '/user_data/thumb/' + path;
 		let par = document.createElement('p');
 		let bl = document.createElement('b');
 		bl.textContent = img_arr['login'];

@@ -40,7 +40,7 @@ class Controller_register extends Controller
   {
   	if (isset($_GET) && !empty($_GET['token']))
   		$answer = "E-mail was resend!".
-  			$this->send_confirm(base64_decode($_GET['token']));
+  			$this->send_confirm(urldecode(base64_decode($_GET['token'])));
   	else
   		$answer = 'NO WRONG TOKEN!';
 		$data = array('title' => 'Confirmation link resend.');
@@ -63,8 +63,8 @@ class Controller_register extends Controller
 	  $headers .= "Reply-To: ". strip_tags($from) . "\r\n";
 	  $headers .= "MIME-Version: 1.0\r\n";
 	  $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-	  file_put_contents("upload_data/mail.txt",
-		  $headers . "Subject: " . $subject . $body);
+	  // file_put_contents("upload_data/mail.txt",
+		 // $headers . "Subject: " . $subject . $body);
 	  if (mail($to, $subject, $body, $headers))
 		  return ("mail accepted for deliverly");
 	  else

@@ -10,7 +10,14 @@
 	<div class="page-wrap">
 	<header>
 		<nav>
+<?php
+if (!isset($_SESSION['user']) || empty($_SESSION['user']))
+{
+?>
 			<a href="/">Main</a>
+<?php
+}
+?>
 			<a href="/gallery">Gallery</a>
 <?php
 if (isset($_SESSION['user']) && !empty($_SESSION['user']))

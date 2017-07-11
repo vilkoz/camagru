@@ -39,8 +39,8 @@ class Controller_login extends Controller
 		  $answer == "Please activate your accaunt via link in e-mail!")
 		{
 		  if ($answer == "Please activate your accaunt via link in e-mail!")
-		    $answer .= " <a href='/register/send_confirm/?token" .
-		      base64_encode($mail) ."'>Resend?</a>";
+		    $answer .= " <a href='/register/send_confirm/?token=" .
+		      urlencode(base64_encode($mail)) ."'>Resend?</a>";
       return ($answer);
 		}
     else
