@@ -253,6 +253,9 @@ window.addEventListener("DOMContentLoaded", function() {
 
 	var current_page = 0;
 	var load_photos = function(){
+		if (loading == true)
+			return ;
+		loading = true;
 		if (current_page == -1)
 			return;
 		var req = new XMLHttpRequest();
@@ -271,6 +274,7 @@ window.addEventListener("DOMContentLoaded", function() {
 			rearrange();
 			add_click_triggers();
 			current_page += 1;
+			loading = false;
 			/* setTimeout(function() { */
 			/* 	if (document.body.scrollHeight == document.body.clientHeight) */
 			/* 		load_photos(); */
@@ -278,9 +282,12 @@ window.addEventListener("DOMContentLoaded", function() {
 		}
 		req.send();
 	}
+	
+	var loading = false;
 
 	var first_load = setInterval(function() {
 		console.log('in interval');
+		console.log('current_page', current_page);
 		if (document.body.scrollHeight == document.body.clientHeight)
 		{
 			console.log('in load');

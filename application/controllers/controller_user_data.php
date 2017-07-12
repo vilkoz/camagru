@@ -65,7 +65,7 @@ class Controller_user_data extends Controller
 		{
 			$img = imagecreatefrompng("user_data/".$img_name);
 			list($w, $h) = getimagesize("user_data/".$img_name);
-			$small = 200;
+			$small = 150;
 			if ($w < $h)
 			{
 				$ws = $small;
@@ -82,6 +82,7 @@ class Controller_user_data extends Controller
 			imagejpeg($tn, NULL, 75);
 			imagedestroy($img);
 			imagedestroy($tn);
+			// echo file_get_contents("user_data/".$img_name);
 		}
 		else
 		{

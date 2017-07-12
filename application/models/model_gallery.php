@@ -60,11 +60,21 @@ ORDER BY `photos`.`pid` DESC LIMIT 16 OFFSET 0".intval($offset * 16));
 
 	public function new_comment($pic_path, $uid, $text)
 	{
-		$stmt = $this->pdo->prepare("INSERT INTO `comments` (`cid`, `pid`, `uid`, `text`) VALUES (NULL, (SELECT `pid` FROM `photos` WHERE `path` = :path), :uid, :text)");
+		$stmt = $this->pdo->prepare("
+		INSERT INTO `comments` (`cid`, `pid`, `uid`, `text`)
+		VALUES (NULL, (SELECT `pid` FROM `photos` WHERE `path` = :path), :uid, :text)");
 		$stmt->bindParam(':path', $pic_path);
 		$stmt->bindParam(':uid', $uid);
 		$stmt->bindParam(':text', $text);
 		$stmt->execute();
+		
+		$stmt = $this->pdo->prepare("
+		SELECT `mail` FROM `users`
+		WHERE `uid` = (SELECT `uid` FROM `photos` WHERE `path` = :path)");
+		$stmt->bindParam(':path', $pic_path);
+		$stmt->execute();
+		$row = $stmt->fetch();
+		return($row['mail']);
 	}
 
 	public function count_likes($pic_path)

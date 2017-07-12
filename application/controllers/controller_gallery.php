@@ -85,8 +85,10 @@ class Controller_gallery extends Controller
 			return;
 		}
 		$uid = unserialize(base64_decode($_SESSION['user']))['uid'];
-		$this->model->new_comment("/user_data/view/".$path,
+		$mail = $this->model->new_comment("/user_data/view/".$path,
 			$uid, htmlspecialchars($_POST['text']), ENT_QUOTES);
+		if ($mail != unserialize(base64_decode($_SESSION['user']))['mail'])
+			$this->send_comment_mail($mail);
 	}
 
 	public function action_like()
@@ -145,6 +147,24 @@ class Controller_gallery extends Controller
 			echo "OK";
 		else
 			echo "This is not your photo!";
+	}
+	
+	function send_comment_mail($mail)
+	{
+	  $subject = "New User Validation" . "\r\n";
+	  $from = 'no-reply@' . $_SERVER['SERVER_NAME'] . "\r\n";
+	  $body = 'Hi, <br/> <br/>Your login is ' ."placeholder" .
+' <br><br>Click here to validate your account '.
+'http://localhost:8080/activate/?token=' . $token . ' &user='.$mail.'<br/>'
+. "\r\n";
+	  $headers = "From: " . strip_tags($from) . "\r\n";
+	  $headers .= "Reply-To: ". strip_tags($from) . "\r\n";
+	  $headers .= "MIME-Version: 1.0\r\n";
+	  $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+	  if (mail($to, $subject, $body, $headers))
+		  return ("mail accepted for deliverly");
+	  else
+		  return ("send fail");
 	}
 }
 ?>

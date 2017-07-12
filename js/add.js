@@ -305,7 +305,7 @@ window.addEventListener("DOMContentLoaded", function() {
 			canvas.width = video.width;
 			canvas.height = video.height;
 			let loader = document.getElementById('image-loader');
-			if (loader.style.display = "none" &&
+			if (loader.style.display == "none" &&
 				document.getElementById('select-file')
 				.classList.contains('active'))
 				loader.style.display = "block";
