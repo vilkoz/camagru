@@ -76,6 +76,8 @@ class Controller_login extends Controller
 	{
 		$mail = $user;
 		$token = $this->model->get_token($mail);
+		if ($token == 'No such user!')
+			return ($token);
 		$to = $mail;
 		$subject = "Camagru password reset";
 		$from = 'no-reply@'.$_SERVER['SERVER_NAME'];

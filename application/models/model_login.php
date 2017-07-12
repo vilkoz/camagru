@@ -71,7 +71,13 @@ class Model_login extends Model
 			"WHERE `mail` = :mail");
 		$stmt->bindParam(':mail', $mail);
 		$stmt->execute();
-		return ($stmt->fetch()['token']);
+		if ($row = $stmt->fetch())
+		{
+			$token = $row['token'];
+			return ($token);
+		}
+		else
+			return ('No such user!');
 	}
 }
 
