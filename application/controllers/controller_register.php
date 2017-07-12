@@ -38,11 +38,15 @@ class Controller_register extends Controller
   
   function action_send_confirm()
   {
-  	if (isset($_GET) && !empty($_GET['token']))
-  		$answer = "E-mail was resend!".
-  			$this->send_confirm(urldecode(base64_decode($_GET['token'])));
-  	else
-  		$answer = 'NO WRONG TOKEN!';
+	  if (isset($_GET) && !empty($_GET['token']))
+	  {
+  		$this->send_confirm(urldecode(base64_decode($_GET['token'])));
+		$answer = "E-mail was resend!";
+	  }
+	  else
+	  {
+		  $answer = 'NO WRONG TOKEN!';
+	  }
 		$data = array('title' => 'Confirmation link resend.');
 		if (isset($answer))
 			$data['answer'] = $answer;
@@ -51,13 +55,16 @@ class Controller_register extends Controller
 
   function send_confirm($mail)
   {
-	  $token = $this->model->get_token($mail);
+	  $log_token = $this->model->get_token($mail);
+	  $token = $log_token['token'];
+	  $login = $log_token['login'];
 	  $to = $mail;
 	  $subject = "New User Validation" . "\r\n";
 	  $from = 'no-reply@'.$_SERVER['SERVER_NAME'] . "\r\n";
-	  $body = 'Hi, <br/> <br/>Your login is ' ."placeholder" .
+	  $body = 'Hi, <br/> <br/>Your login is ' . $login.
 ' <br><br>Click here to validate your account '.
-'http://localhost:8080/activate/?token=' . $token . ' &user='.$mail.'<br/>'
+			'http://'.$_SERVER['HTTP_HOST'].
+			'/register/activate/?token=' . $token . '&user='.$mail.' <br/>'
 . "\r\n";
 	  $headers = "From: " . strip_tags($from) . "\r\n";
 	  $headers .= "Reply-To: ". strip_tags($from) . "\r\n";
@@ -65,7 +72,7 @@ class Controller_register extends Controller
 	  $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 	  // file_put_contents("upload_data/mail.txt",
 		 // $headers . "Subject: " . $subject . $body);
-	  if (mail($to, $subject, $body, $headers))
+	  if (mail($to, $subject, $body))
 		  return ("mail accepted for deliverly");
 	  else
 		  return ("send fail");

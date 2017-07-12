@@ -19,9 +19,15 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
+-- Удаление старой базы данных
+--
+
+DROP DATABASE IF EXISTS `camagru`;
+
+--
 -- База данных: `camagru`
 --
-CREATE DATABASE IF NOT EXISTS `camagru` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+CREATE DATABASE IF NOT EXISTS `camagru` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
 USE `camagru`;
 
 -- --------------------------------------------------------
@@ -35,7 +41,7 @@ CREATE TABLE `comments` (
   `pid` int(11) NOT NULL,
   `uid` int(11) NOT NULL,
   `text` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `comments`
@@ -83,13 +89,9 @@ INSERT INTO `comments` (`cid`, `pid`, `uid`, `text`) VALUES
 (39, 53, 23, 'zzz... [2]'),
 (40, 80, 23, 'it\'s my soul'),
 (41, 80, 22, 'nice'),
-(42, 80, 22, 'Ð¼Ð¾Ð¶Ð½Ð¾ Ð±Ñ‹Ð»Ð¾ Ð² `caption` Ð¿Ð¾Ð´Ð¿Ð¸Ð°Ñ‚ÑŒ, Ð²Ð¾Ð¾Ð±Ñ‰Ðµ-Ñ‚Ð¾'),
 (43, 80, 23, 'I know'),
 (44, 78, 22, 'lol'),
 (45, 78, 22, '&lt;script&gt;alert(&quot;hello&quot;);&lt;/script&gt;'),
-(46, 103, 22, 'Ð¿Ð¾Ð¼Ð¾Ð¹ÐºÐ°'),
-(47, 103, 22, 'Ð¶Ð¾Ð¿Ð°\\'),
-(48, 103, 22, 'Ñ…ÐµÑ…'),
 (49, 111, 23, 'Was ist das?'),
 (50, 101, 23, 'So sweet'),
 (51, 99, 23, 'Chicken god?'),
@@ -101,22 +103,13 @@ INSERT INTO `comments` (`cid`, `pid`, `uid`, `text`) VALUES
 (57, 111, 23, 'Baba so-so kanesh'),
 (58, 103, 23, 'nice comments'),
 (59, 129, 22, 'axaxax'),
-(60, 129, 22, 'ÑÑƒÐ¿ÐµÑ€ Ð² Ð³Ð¾Ð»Ð¾Ñ'),
-(61, 131, 22, 'ÑÑ‚Ð° Ñ‚Ð¾Ð¶Ðµ Ñ‚Ð¾Ð¿'),
 (62, 131, 22, '#like_for_like'),
-(63, 130, 22, 'Ð²ÑÐµ, Ð½ÐµÐ»ÑŒÐ·Ñ ÑƒÐ´Ð°Ð»ÑÑ‚ÑŒ Ð±Ð¾Ð»ÑŒÑˆÐµ Ñ‡ÑƒÐ¶Ð¸Ðµ Ñ„Ð¾Ñ‚ÐºÐ¸'),
 (64, 131, 23, 'thanx'),
 (65, 130, 23, 'nice'),
-(66, 137, 23, 'Ð¾, Ð²Ð°Ð·Ð¾Ð½Ñ‡Ð¸Ðº'),
-(67, 137, 22, 'Ð´Ð¾Ð²Ð¾Ð»ÑŒÐ½Ð¾ ÑÑ‚Ñ€Ð°Ð½Ð½Ñ‹Ð¹ Ñ†Ð²ÐµÑ‚Ð¾Ðº'),
-(68, 137, 22, 'Ð´Ð°Ð¶Ðµ Ð½Ðµ Ñ†Ð²ÐµÑ‚ÐµÑ‚'),
 (69, 140, 23, 'nooooooo...'),
 (70, 141, 23, 'after long day working on project'),
 (71, 141, 23, '/imaginary friends/'),
-(72, 137, 23, 'ÑÑ‚Ð¾ Ð´ÐµÐ½ÐµÐ¶Ð½Ð¾Ðµ Ð´ÐµÑ€ÐµÐ²Ð¾'),
-(73, 137, 23, 'Ð²Ñ€Ð¾Ð´Ðµ'),
 (74, 141, 22, 'Hehe'),
-(75, 137, 22, 'Ð½Ð¾ Ñ‡Ñ‚Ð¾-Ñ‚Ð¾ Ð´ÐµÐ½ÐµÐ³ Ñ Ð½ÐµÐ³Ð¾ Ð¼Ð°Ð»Ð¾Ð²Ð°Ñ‚Ð¾'),
 (76, 138, 22, 'sdf'),
 (77, 141, 22, 'comment from smartfone');
 
@@ -130,7 +123,7 @@ CREATE TABLE `likes` (
   `uid` int(11) NOT NULL,
   `pid` int(11) NOT NULL,
   `cid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `likes`

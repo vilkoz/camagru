@@ -12,10 +12,11 @@ class Controller_login extends Controller
 
 	function check_session()
 	{
-		session_start();
+		if (!isset($_SESSION))
+			session_start();
 		if (isset($_SESSION['user']) && !empty($_SESSION['user']))
 		{
-			$host = 'https://'.$_SERVER['HTTP_HOST']."/";
+			$host = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST']."/";
 			header('Location:'.$host.'main');
 		}
 	}
@@ -50,7 +51,8 @@ class Controller_login extends Controller
       $_SESSION['user'] = base64_encode(serialize($answer));
       /* $host = 'http://'.$_SERVER['HTTP_HOST']."/"; */
       /* header('Location:'.$host.'main'); */
-      return ($answer);
+		//return ($answer);
+		return ("Success!");
     }
   }
 
@@ -81,14 +83,16 @@ class Controller_login extends Controller
 		$to = $mail;
 		$subject = "Camagru password reset";
 		$from = 'no-reply@'.$_SERVER['SERVER_NAME'];
-		$body = 'Hi, <br/> <br/>Your login is ' ."placeholder" .
+		$body = 'Hi!' .
 			' <br><br>Click here to reset your password '.
-			'http://localhost:8080/login/reset/?token=' . $token . ' &user='.$mail.'<br/>';
+			'http://'.$_SERVER['SERVER_NAME'].
+			(isset($_SEVER['SERVER_PORT']) ? ":".$_SEVER['SERVER_PORT'] : "").
+			'/login/reset/?token=' . $token . ' &user='.$mail.'<br/>'.$from;
 		$headers = "From: " . strip_tags($from) . "\r\n";
 		$headers .= "Reply-To: ". strip_tags($from) . "\r\n";
 		$headers .= "MIME-Version: 1.0\r\n";
 		$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-		if (mail($to, $subject, $body, $headers))
+		if (mail($to, $subject, $body))
 			return ("Please follow link in e-mail to reset your password");
 		else
 			return ("send fail");

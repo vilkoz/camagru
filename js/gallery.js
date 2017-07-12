@@ -222,6 +222,22 @@ window.addEventListener("DOMContentLoaded", function() {
 		document.getElementsByTagName('body')[0].classList.add('noscroll');
 	}
 
+	var show_perview_post = function(path) {
+		var page_wrap = document.getElementsByClassName('page-wrap')[0];
+		var new_div = document.createElement("div");
+		new_div.classList.add("perview-cover");
+		new_div.onclick = function(){
+			hide_perview();
+		}
+		page_wrap.appendChild(new_div);
+		var perw = document.createElement("div");
+		perw.classList.add("perview");
+		get_perw_view(path, perw);
+		page_wrap.appendChild(perw);
+		body_scroll_height = document.getElementsByTagName('body')[0].scrollTop;
+		document.getElementsByTagName('body')[0].classList.add('noscroll');
+	}
+
 	var append_photo = function(img_arr) {
 		let g_wrp = document.getElementsByClassName('gallery-wrapper')[0];
 		let article = document.createElement('article');
@@ -303,6 +319,16 @@ window.addEventListener("DOMContentLoaded", function() {
 	/* load_photos(); */
 
 	/* first_load; */
+
+	function get(name){
+		if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+			return decodeURIComponent(name[1]);
+	}
+
+	if (get('path'))
+	{
+		show_perview_post(get('path'));
+	}
 
 	var get_scroll_percent = function(element){
 		var a = element.scrollTop;

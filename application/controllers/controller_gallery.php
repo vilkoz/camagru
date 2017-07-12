@@ -87,8 +87,10 @@ class Controller_gallery extends Controller
 		$uid = unserialize(base64_decode($_SESSION['user']))['uid'];
 		$mail = $this->model->new_comment("/user_data/view/".$path,
 			$uid, htmlspecialchars($_POST['text']), ENT_QUOTES);
+		echo $mail."\n";
+		echo unserialize(base64_decode($_SESSION['user']))['mail']."\n";
 		if ($mail != unserialize(base64_decode($_SESSION['user']))['mail'])
-			$this->send_comment_mail($mail);
+			echo $this->send_comment_mail($mail, $path);
 	}
 
 	public function action_like()
@@ -149,22 +151,28 @@ class Controller_gallery extends Controller
 			echo "This is not your photo!";
 	}
 	
-	function send_comment_mail($mail)
+	function send_comment_mail($mail, $path)
 	{
-	  $subject = "New User Validation" . "\r\n";
-	  $from = 'no-reply@' . $_SERVER['SERVER_NAME'] . "\r\n";
-	  $body = 'Hi, <br/> <br/>Your login is ' ."placeholder" .
-' <br><br>Click here to validate your account '.
-'http://localhost:8080/activate/?token=' . $token . ' &user='.$mail.'<br/>'
-. "\r\n";
-	  $headers = "From: " . strip_tags($from) . "\r\n";
-	  $headers .= "Reply-To: ". strip_tags($from) . "\r\n";
-	  $headers .= "MIME-Version: 1.0\r\n";
-	  $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-	  if (mail($to, $subject, $body, $headers))
+		echo "sending mail\n";
+		echo $mail;
+	  $subject = "New comment to your photo on Camagru";
+	  $from = 'no-reply@' . $_SERVER['SERVER_NAME'];
+	  $body = 'Hi, somebody commented your photo on camagru!'.
+		  ' Check it out here: '.
+		  $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST']."/".
+		  "gallery/post/?path=".$path;
+	  if (mail($mail, $subject, $body))
 		  return ("mail accepted for deliverly");
 	  else
 		  return ("send fail");
+	}
+
+	public function action_post()
+	{
+		$data = array('title' => 'Gallery');
+		if (isset($_GET) && isset($_GET['path']))
+			$data['path'] = $_GET['path'];
+		$this->view->generate('gallery_view.php', 'template_view.php', $data);
 	}
 }
 ?>

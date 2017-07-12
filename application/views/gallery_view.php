@@ -14,3 +14,12 @@
 </div>
 <script src='/js/gallery.js'>
 </script>
+<?php
+if (isset($path))
+{
+?>
+<!-- <div onload="show_perview_post('<?php echo $path;?>')"></div>
+	<script>
+		show_perview_post('<?php echo $path;?>');
+	</script> -->
+<?php }?>

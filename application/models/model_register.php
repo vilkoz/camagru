@@ -46,11 +46,16 @@ class Model_register extends Model
 
   public function get_token($mail)
   {
-	  $stmt = $this->pdo->prepare("SELECT `token` FROM `users` ".
+	  $stmt = $this->pdo->prepare("SELECT `token`,`login` FROM `users` ".
 		  "WHERE `mail` = :mail");
 	  $stmt->bindParam(':mail', $mail);
 	  $stmt->execute();
-	  return ($stmt->fetch()['token']);
+	  if ($row = $stmt->fetch())
+	  {
+		  return ($row);
+	  }
+	  else
+		  return ("No such user!");
   }
 
   public function activate_user($user, $token)
@@ -67,7 +72,7 @@ class Model_register extends Model
 	  $stmt = $this->pdo->prepare("UPDATE `users` SET `active` = '1',`token` = :token WHERE `users`.`uid` = :uid");
 	  $stmt->bindParam(':uid', $uid);
 	  $stmt->bindParam(':token', $token);
-	  $token = $this->get_token($user);
+	  $token = $this->get_token($user)['token'];
 	  $stmt->execute();
 	  return ("Accaunt activated! Please login via login page.");
   }
