@@ -253,7 +253,8 @@ INSERT INTO `users` (`uid`, `login`, `mail`, `pass`, `active`, `token`) VALUES
 (19, 'asff', 'sdfa@asdf', 'd88b750a503c2110df3db65cccc4ee049ca0a5688cee36f9bdee88dfe537ef2c', 1, '48463e46c30f1d64f15ad67a4337fbf7b2d25a7fbd79db9271cf478b6149de35'),
 (22, 'test', 'a@a.gd', 'a3a9161c4bd3946d8a197dd7ca92be87df510a942e3cbef746b68203620089c3', 1, '03eb9031a88f84c87047ac69d3ac9b619d5ec8fa2ce7e7a5d06824cee352f7ed'),
 (23, 'the_first_one', 'g@g.com', '92ac43845b7432f6eebfe29b51b896bca761e35c2d60160cc8de34d3917b93af', 1, '9989777bac2fc60f76e448c434aee3056825d5f48c872ff9c96eda356e26ca49'),
-(24, 'adf', 'test@activation', '37087595a807b034fa5ae96fac588af274eb059cdee035ff66d9fecef53bbae1', 0, '7a0aad7ea6f99c621a3037eeffcb3f9f1a3a384e15875a248a9c155314612afc');
+(24, 'adf', 'test@activation', '37087595a807b034fa5ae96fac588af274eb059cdee035ff66d9fecef53bbae1', 0, '7a0aad7ea6f99c621a3037eeffcb3f9f1a3a384e15875a248a9c155314612afc'),
+(32, 'perview_user', 'test@test.com', '8f266f96ee5e4685ed91eacd4e3be0c18b873d7a4088425aeb1fc80b49b260f1', 1, '10d72219d0aef6860cfb6fe68a40ddb23ad24a5ce9a9554b47adfb5343bf05b2');
 
 --
 -- Индексы сохранённых таблиц
