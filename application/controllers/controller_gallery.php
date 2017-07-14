@@ -85,8 +85,12 @@ class Controller_gallery extends Controller
 			return;
 		}
 		$uid = unserialize(base64_decode($_SESSION['user']))['uid'];
-		$this->model->new_comment("/user_data/view/".$path,
+		$mail = $this->model->new_comment("/user_data/view/".$path,
 			$uid, htmlspecialchars($_POST['text']), ENT_QUOTES);
+		echo $mail."\n";
+		echo unserialize(base64_decode($_SESSION['user']))['mail']."\n";
+		if ($mail != unserialize(base64_decode($_SESSION['user']))['mail'])
+			echo $this->send_comment_mail($mail, $path);
 	}
 
 	public function action_like()
@@ -145,6 +149,30 @@ class Controller_gallery extends Controller
 			echo "OK";
 		else
 			echo "This is not your photo!";
+	}
+	
+	function send_comment_mail($mail, $path)
+	{
+		echo "sending mail\n";
+		echo $mail;
+	  $subject = "New comment to your photo on Camagru";
+	  $from = 'no-reply@' . $_SERVER['SERVER_NAME'];
+	  $body = 'Hi, somebody commented your photo on camagru!'.
+		  ' Check it out here: '.
+		  $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST']."/".
+		  "gallery/post/?path=".$path;
+	  if (mail($mail, $subject, $body))
+		  return ("mail accepted for deliverly");
+	  else
+		  return ("send fail");
+	}
+
+	public function action_post()
+	{
+		$data = array('title' => 'Gallery');
+		if (isset($_GET) && isset($_GET['path']))
+			$data['path'] = $_GET['path'];
+		$this->view->generate('gallery_view.php', 'template_view.php', $data);
 	}
 }
 ?>

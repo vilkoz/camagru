@@ -7,7 +7,8 @@ class Controller_logout extends Controller
 			session_start();
 		if(isset($_SESSION['user']))
 			unset($_SESSION['user']);
-      $host = 'https://'.$_SERVER['HTTP_HOST']."/";
+    //  $host = 'https://'.$_SERVER['HTTP_HOST']."/";
+		$host = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST']."/";
       header('Location:'.$host.'main');
 	}
 }

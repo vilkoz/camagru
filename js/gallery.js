@@ -95,16 +95,21 @@ window.addEventListener("DOMContentLoaded", function() {
 	}
 
 	var perview_listeners = function(){
-		document.getElementById('new-comment')
-			.addEventListener("keyup", function(event){
+		let new_c = document.getElementById('new-comment');
+		if (new_c)	
+		{
+			new_c.addEventListener("keyup", function(event){
 				event.preventDefault();
 				if (event.keyCode == 13){
 					document.getElementById('send-comment').click();
 				}
 			});
+		}
 
-		document.getElementById('send-comment')
-			.addEventListener('click', function(){
+		let send_c = document.getElementById('send-comment');
+		if (send_c)
+		{
+			send_c.addEventListener('click', function(){
 			console.log('clicked');
 			let req = new XMLHttpRequest();
 			let data = new FormData();
@@ -121,6 +126,7 @@ window.addEventListener("DOMContentLoaded", function() {
 			req.send(data);
 			document.getElementById('new-comment').value = '';
 			});
+		}
 		document.getElementsByClassName("perview-photo")[0]
 			.addEventListener('click', function(){
 				let req = new XMLHttpRequest();
@@ -216,6 +222,22 @@ window.addEventListener("DOMContentLoaded", function() {
 		document.getElementsByTagName('body')[0].classList.add('noscroll');
 	}
 
+	var show_perview_post = function(path) {
+		var page_wrap = document.getElementsByClassName('page-wrap')[0];
+		var new_div = document.createElement("div");
+		new_div.classList.add("perview-cover");
+		new_div.onclick = function(){
+			hide_perview();
+		}
+		page_wrap.appendChild(new_div);
+		var perw = document.createElement("div");
+		perw.classList.add("perview");
+		get_perw_view(path, perw);
+		page_wrap.appendChild(perw);
+		body_scroll_height = document.getElementsByTagName('body')[0].scrollTop;
+		document.getElementsByTagName('body')[0].classList.add('noscroll');
+	}
+
 	var append_photo = function(img_arr) {
 		let g_wrp = document.getElementsByClassName('gallery-wrapper')[0];
 		let article = document.createElement('article');
@@ -223,7 +245,11 @@ window.addEventListener("DOMContentLoaded", function() {
 		let thumb = document.createElement('div');
 		thumb.classList.add('thumbnail');
 		let pic = document.createElement('img');
-		pic.src = img_arr['path'];
+	
+		let tmp = img_arr['path'].split('/');
+		let path = tmp[tmp.length - 1];
+		
+		pic.src = '/user_data/thumb/' + path;
 		let par = document.createElement('p');
 		let bl = document.createElement('b');
 		bl.textContent = img_arr['login'];
@@ -243,6 +269,9 @@ window.addEventListener("DOMContentLoaded", function() {
 
 	var current_page = 0;
 	var load_photos = function(){
+		if (loading == true)
+			return ;
+		loading = true;
 		if (current_page == -1)
 			return;
 		var req = new XMLHttpRequest();
@@ -261,6 +290,7 @@ window.addEventListener("DOMContentLoaded", function() {
 			rearrange();
 			add_click_triggers();
 			current_page += 1;
+			loading = false;
 			/* setTimeout(function() { */
 			/* 	if (document.body.scrollHeight == document.body.clientHeight) */
 			/* 		load_photos(); */
@@ -268,9 +298,12 @@ window.addEventListener("DOMContentLoaded", function() {
 		}
 		req.send();
 	}
+	
+	var loading = false;
 
 	var first_load = setInterval(function() {
 		console.log('in interval');
+		console.log('current_page', current_page);
 		if (document.body.scrollHeight == document.body.clientHeight)
 		{
 			console.log('in load');
@@ -286,6 +319,16 @@ window.addEventListener("DOMContentLoaded", function() {
 	/* load_photos(); */
 
 	/* first_load; */
+
+	function get(name){
+		if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
+			return decodeURIComponent(name[1]);
+	}
+
+	if (get('path'))
+	{
+		show_perview_post(get('path'));
+	}
 
 	var get_scroll_percent = function(element){
 		var a = element.scrollTop;

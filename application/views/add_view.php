@@ -21,7 +21,7 @@
 sboku
 </aside>
 <div style="clear: both;"></div>
-	<button id="snap">Snap Photo</button>
+	<button id="snap" disabled>Snap Photo</button>
 	<input type="text" id="caption" placeholder="caption">
 	<button id="send" style="display:none">Send Photo</button>
 <div style="clear: both;"></div>

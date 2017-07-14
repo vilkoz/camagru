@@ -1,5 +1,4 @@
 <?php
-
 if ($_SERVER['SERVER_NAME'] == 'camagru-vilkoz.herokuapp.com')
 {
 	$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
