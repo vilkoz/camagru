@@ -1,5 +1,6 @@
 <?php
-if ($_SERVER['SERVER_NAME'] == 'camagru-vilkoz.herokuapp.com')
+if ($_SERVER['SERVER_NAME'] == 'camagru-vilkoz.herokuapp.com' ||
+	(isset($argv) && $argv[1] == 'heroku'))
 {
 	$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 	$host = $url['host'];
