@@ -22,13 +22,13 @@ SET time_zone = "+00:00";
 -- Удаление старой базы данных
 --
 
-DROP DATABASE IF EXISTS `camagru`;
+-- DROP DATABASE IF EXISTS `camagru`;
 
 --
 -- База данных: `camagru`
 --
-CREATE DATABASE IF NOT EXISTS `camagru` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
-USE `camagru`;
+-- CREATE DATABASE IF NOT EXISTS `camagru` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+-- USE `camagru`;
 
 -- --------------------------------------------------------
 
