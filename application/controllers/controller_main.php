@@ -11,8 +11,8 @@ class Controller_Main extends Controller
       if (isset($_SESSION) && isset($_SESSION['user']) &&
         !empty($_SESSION['user']))
         {
-          //$host = 'https://'.$_SERVER['HTTP_HOST']."/";
-		  $host = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST']."/";
+          $host = 'https://'.$_SERVER['HTTP_HOST']."/";
+		  //$host = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST']."/";
           header('Location:'.$host.'gallery');
 	  }
 	  $this->view->generate('main_view.php', 'template_view.php',
