@@ -47,7 +47,7 @@ class Route
       Route::ErrorPage404();
   }
 
-  function ErrorPage404()
+  static function ErrorPage404()
   {
 	$host = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST']."/";
     header('HTTP/1.1 404 Not Found');
@@ -55,7 +55,7 @@ class Route
     header('Location:'.$host.'404');
   }
   
-  function show_favicon()
+  static function show_favicon()
   {
 		header("Content-Type: image/png");
     echo base64_decode(
