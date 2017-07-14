@@ -11,6 +11,6 @@ catch (PDOException $e)
 }
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $stmt = $pdo->prepare("SELECT * FROM `users`");
-$stmt->exec();
+$stmt->execute();
 print_r($stmt->fetchAll());
 ?>
