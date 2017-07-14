@@ -16,7 +16,7 @@ class Controller_register extends Controller
     session_start();
     if (isset($_SESSION['user']) && !empty($_SESSION['user']))
     {
-      $host = 'https://'.$_SERVER['HTTP_HOST']."/";
+      $host = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST']."/";
       header('Location:'.$host.'main');
     }
   }
@@ -61,10 +61,11 @@ class Controller_register extends Controller
 	  $to = $mail;
 	  $subject = "New User Validation" . "\r\n";
 	  $from = 'no-reply@'.$_SERVER['SERVER_NAME'] . "\r\n";
+      $host = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST']."/";
 	  $body = 'Hi, <br/> <br/>Your login is ' . $login.
 ' <br><br>Click here to validate your account '.
-			'http://'.$_SERVER['HTTP_HOST'].
-			'/register/activate/?token=' . $token . '&user='.$mail.' <br/>'
+			$host.
+			'register/activate/?token=' . $token . '&user='.$mail.' <br/>'
 . "\r\n";
 	  $headers = "From: " . strip_tags($from) . "\r\n";
 	  $headers .= "Reply-To: ". strip_tags($from) . "\r\n";

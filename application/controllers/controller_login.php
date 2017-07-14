@@ -83,11 +83,11 @@ class Controller_login extends Controller
 		$to = $mail;
 		$subject = "Camagru password reset";
 		$from = 'no-reply@'.$_SERVER['SERVER_NAME'];
+		$host = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST']."/";
 		$body = 'Hi!' .
 			' <br><br>Click here to reset your password '.
-			'http://'.$_SERVER['SERVER_NAME'].
-			(isset($_SEVER['SERVER_PORT']) ? ":".$_SEVER['SERVER_PORT'] : "").
-			'/login/reset/?token=' . $token . ' &user='.$mail.'<br/>'.$from;
+			$host.
+			'login/reset/?token=' . $token . '&user='.$mail.'<br/>'.$from;
 		$headers = "From: " . strip_tags($from) . "\r\n";
 		$headers .= "Reply-To: ". strip_tags($from) . "\r\n";
 		$headers .= "MIME-Version: 1.0\r\n";

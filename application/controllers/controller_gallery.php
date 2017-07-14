@@ -41,7 +41,7 @@ class Controller_gallery extends Controller
 		$comments = $this->model->get_comments("/user_data/view/".$path);
 		$info = $this->model->get_perview_info("/user_data/view/".$path);
 		$data = array('path' => "/user_data/view/".$path,
-		'comments' => $comments, 'info' => $info);
+			'comments' => $comments, 'info' => $info);
 		$this->view->generate("gallery_perview_view.php",
 			"template_empty_view.php", $data);
 	}
@@ -150,21 +150,22 @@ class Controller_gallery extends Controller
 		else
 			echo "This is not your photo!";
 	}
-	
+
 	function send_comment_mail($mail, $path)
 	{
 		echo "sending mail\n";
 		echo $mail;
-	  $subject = "New comment to your photo on Camagru";
-	  $from = 'no-reply@' . $_SERVER['SERVER_NAME'];
-	  $body = 'Hi, somebody commented your photo on camagru!'.
-		  ' Check it out here: '.
-		  $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST']."/".
-		  "gallery/post/?path=".$path;
-	  if (mail($mail, $subject, $body))
-		  return ("mail accepted for deliverly");
-	  else
-		  return ("send fail");
+		$subject = "New comment to your photo on Camagru";
+		$from = 'no-reply@' . $_SERVER['SERVER_NAME'];
+		$host = $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST']."/";
+		$body = 'Hi, somebody commented your photo on camagru!'.
+			' Check it out here: '.
+			$host.
+			"gallery/post/?path=".$path;
+		if (mail($mail, $subject, $body))
+			return ("mail accepted for deliverly");
+		else
+			return ("send fail");
 	}
 
 	public function action_post()
