@@ -10,6 +10,7 @@ echo $DB_USER;
 echo "\n";
 echo $DB_PASS;
 echo "\n";
+echo "SERVER_NAME: ".$_SERVER['SERVER_NAME']."\n";
 try
 {
 	$pdo = new PDO($DB_DSN, $DB_USER, $DB_PASS);
