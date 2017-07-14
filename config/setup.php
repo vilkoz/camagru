@@ -6,7 +6,7 @@ try
 }
 catch (PDOException $e)
 {
-	echo "Error ".$e->message;
+	echo print_r($e);
 	$pdo = new PDO('mysql:host=127.0.0.1', $DB_USER, $DB_PASS);
 }
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
