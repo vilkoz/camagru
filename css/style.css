@@ -895,9 +895,17 @@ input#caption {
 	margin: 0 auto;
 }
 
+#menu {
+	display: none;
+}
+
 @media only screen and (max-device-width: 480px) {
 	header {
 		font-size: 10em;
+		position: fixed;
+		z-index: 5;
+		top: -1000px;
+		transition: top .5s;
 	}
 
 	.thumbnail {
@@ -937,6 +945,9 @@ input#caption {
 	.form-wrap {
 		width: 80%;
 		font-size: 3em;
+		position: fixed;
+		left: 9%;
+		top: 34%;
 	}
 
 	form.login > input, form.register > input{
@@ -988,9 +999,39 @@ input#caption {
 		height: 100%;
 	}
 
-	header.hidden {
-		position: absolute;
-		top: -1000px;
+	header.show {
+		position: fixed;
+		top: 0px;
 		transition: top .5s;
+	}
+
+	#menu {
+		/* display: inline-block; */
+		display: flex;
+		align-items: center;
+		position: fixed;
+		right: 100px;
+		top: -1000px;
+		width: 100px;
+		height: 100px;
+		background-color: black;
+		border-radius: 50px;
+		z-index: 10;
+		cursor: pointer;
+		transition: top .5s;
+	}
+	#menu.show {
+		top: 100px;
+		transition: top .5s;
+	}
+
+	.bar {
+		width: 80%;
+		height: 5px;
+		background-color: white;
+		margin: 6px auto;
+	}
+	.menu-container {
+		width: 100%;
 	}
 }
